@@ -1,0 +1,139 @@
+{
+ "charts": [
+  {
+   "chart_name": "Service Request",
+   "label": "Service Request"
+  },
+  {
+   "chart_name": "Vehicle Inspections",
+   "label": "Vehicle inspections"
+  },
+  {
+   "chart_name": "Sales Invoices",
+   "label": "Sales Invoices"
+  },
+  {
+   "chart_name": "Job Cards",
+   "label": "Job Cards"
+  }
+ ],
+ "content": "[{\"id\":\"hc6lhV2nr8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Manager Workspace</span>\",\"col\":12}},{\"id\":\"wbU8V4NedK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"id\":\"2svzX_Ma68\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Details\",\"col\":3}},{\"id\":\"QTB9J9BqzM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"manager\",\"col\":3}},{\"id\":\"yQEj3kOJqr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vehicle Inspection\",\"col\":3}},{\"id\":\"LsJBK6wDoF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Requests\",\"col\":3}},{\"id\":\"JQ5qeeaM4o\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Spare Part\",\"col\":3}},{\"id\":\"cPZYJIXFUC\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Services\",\"col\":3}},{\"id\":\"JLX1j-JWHL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Job Card\",\"col\":3}},{\"id\":\"OS93I15oAr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice\",\"col\":3}},{\"id\":\"dAFgPyDTir\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Feedbacks\",\"col\":3}},{\"id\":\"GKGT-RlRxj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports</b></span>\",\"col\":12}},{\"id\":\"ypV2ERYtx6\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service\",\"col\":3}},{\"id\":\"-RRz8aJGyp\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Charts</b></span>\",\"col\":12}},{\"id\":\"hOoETJINkk\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Service Request\",\"col\":6}},{\"id\":\"5MVL6a4NaA\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Vehicle inspections\",\"col\":6}},{\"id\":\"BgaSXkOWFY\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Job Cards\",\"col\":6}},{\"id\":\"02SePauhD8\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Sales Invoices\",\"col\":6}}]",
+ "creation": "2025-04-17 11:16:18.265031",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "unhide",
+ "idx": 9,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Manager Workspace",
+ "links": [],
+ "modified": "2025-04-17 17:23:34.866562",
+ "modified_by": "Administrator",
+ "module": "Bike Service",
+ "name": "Manager Workspace",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Manager"
+  }
+ ],
+ "sequence_id": 31.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Service",
+   "link_to": "Bike Service",
+   "report_ref_doctype": "Service Job Card",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Customer",
+   "link_to": "Customer",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Service Feedbacks",
+   "link_to": "Service Feedback",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Vehicle Details",
+   "link_to": "Vehicle Details",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "manager",
+   "link_to": "Manager",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Vehicle Inspection",
+   "link_to": "Vehicle Inspection",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Service Requests",
+   "link_to": "Service Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Spare Part",
+   "link_to": "Spare Part",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Services",
+   "link_to": "Service Type",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Job Card",
+   "link_to": "Service Job Card",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Manager Workspace"
+}

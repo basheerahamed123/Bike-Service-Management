@@ -5,6 +5,31 @@ app_description = "Just an bike service application to monitor end to end servic
 app_email = "basheerahamedjr@gmail.com"
 app_license = "mit"
 
+app_include_js = "/assets/bike_app/js/service_details.js"
+
+# doc_events = {
+#     "Service Job Card": {
+#         "on_update": "bike_service.bike_service.doctype.service_job_card.service_job_card.create_invoice"
+#     }
+# }
+
+override_doctype_class = {
+    "Service Job Card": "bike_service.bike_service.doctype.service_job_card.service_job_card.ServiceJobCard"
+}
+
+
+permission_query_conditions = {
+    "Service Job Card": "bike_service.bike_service.doctype.service_job_card.service_job_card.get_permission_query_conditions",
+    "Service Request": "bike_service.bike_service.doctype.service_request.service_request.get_permission_query_conditions",
+    "Vehicle Inspection": "bike_service.bike_service.doctype.vehicle_inspection.vehicle_inspection.get_permission_query_conditions"
+}
+
+doctype_js = {
+    "Service Request": "bike_service.bike_service.bike_service.doctype.service_request.service_request.js",
+    "Service Job Card": "bike_service.bike_service.doctype.service_job_card.service_job_card.js"
+}
+
+
 # Apps
 # ------------------
 

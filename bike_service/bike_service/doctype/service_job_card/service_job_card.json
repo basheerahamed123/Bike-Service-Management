@@ -1,0 +1,199 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-12 12:30:00.088856",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicleinspectionid",
+  "customername",
+  "vehicle_number",
+  "service_request_id",
+  "vehicle_inspector_name",
+  "brand",
+  "column_break_zxxs",
+  "model",
+  "year",
+  "inspection_date",
+  "photo_of_vehicle",
+  "assigned_technician",
+  "service_status",
+  "status",
+  "section_break_bgfu",
+  "vehicle_problems",
+  "section_break_dott",
+  "additional_changes_to_be_done",
+  "section_break_xabb",
+  "servicetype",
+  "partsused",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customername",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_xabb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "partsused",
+   "fieldtype": "Table",
+   "label": "Parts Used",
+   "options": "Parts Used"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Open\nCompleted\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vehicleinspectionid",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle Inspection ID",
+   "options": "Vehicle Inspection",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "vehicle_problems",
+   "fieldtype": "Table",
+   "label": "Vehicle Problems",
+   "options": "Vehicle Problem Checklist"
+  },
+  {
+   "fieldname": "column_break_zxxs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vehicle_inspector_name",
+   "fieldtype": "Link",
+   "label": "Vehicle Inspector Name",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year"
+  },
+  {
+   "fieldname": "photo_of_vehicle",
+   "fieldtype": "Attach Image",
+   "label": "Photo Of Vehicle"
+  },
+  {
+   "fieldname": "section_break_dott",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "service_request_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Service Request ID",
+   "options": "Service Request",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vehicle_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle Number",
+   "options": "Vehicle Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "servicetype",
+   "fieldtype": "Table",
+   "label": "Service Type",
+   "options": "Job Service",
+   "reqd": 1
+  },
+  {
+   "fieldname": "assigned_technician",
+   "fieldtype": "Link",
+   "label": "Assigned Technician",
+   "options": "Employee"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "additional_changes_to_be_done",
+   "fieldtype": "Table",
+   "label": "Additional Changes To Be Done",
+   "options": "Additional Changes"
+  },
+  {
+   "fieldname": "section_break_bgfu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Service Job Card",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "service_status",
+   "fieldtype": "Select",
+   "label": "Service Status",
+   "options": "Pending\nOn Process\nCompleted"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-04-30 10:14:15.566529",
+ "modified_by": "Administrator",
+ "module": "Bike Service",
+ "name": "Service Job Card",
+ "owner": "basheerahamedjr@gmail.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

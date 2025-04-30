@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-12 11:52:14.012942",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customername",
+  "vehiclenumber",
+  "assigned_vehicle_inspector",
+  "advisor_updated",
+  "column_break_znbo",
+  "requesteddate",
+  "confirmation_through_call",
+  "status",
+  "status_of_service",
+  "section_break_xduo",
+  "servicetype",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customername",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vehiclenumber",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Vehicle Number",
+   "options": "Vehicle Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requesteddate",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Requested Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "servicetype",
+   "fieldtype": "Table",
+   "label": "Service Type",
+   "options": "Job Service",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_znbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_xduo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "assigned_vehicle_inspector",
+   "fieldtype": "Link",
+   "label": "Assigned Vehicle Inspector",
+   "options": "Employee"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Pending",
+   "fieldname": "confirmation_through_call",
+   "fieldtype": "Select",
+   "label": "Confirmation Through Call",
+   "options": "Pending\nConfirmed\nRejected"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Service Request",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "advisor_updated",
+   "fieldtype": "Check",
+   "label": "Advisor Updated"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Not Completed",
+   "fieldname": "status_of_service",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status Of Service",
+   "options": "Completed\nNot Completed\nCancelled",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Pending\nAccepted\nRejected",
+   "placeholder": "Pending",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-04-30 11:53:39.986938",
+ "modified_by": "Administrator",
+ "module": "Bike Service",
+ "name": "Service Request",
+ "owner": "basheerahamedjr@gmail.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customername",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

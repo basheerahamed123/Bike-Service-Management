@@ -1,0 +1,45 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-12 12:22:06.114361",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "service",
+  "serviceamount"
+ ],
+ "fields": [
+  {
+   "fieldname": "service",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Service",
+   "options": "Service Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "service.amount",
+   "fieldname": "serviceamount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Service Amount",
+   "non_negative": 1,
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-04-15 18:07:45.196826",
+ "modified_by": "Administrator",
+ "module": "Bike Service",
+ "name": "Job Service",
+ "owner": "basheerahamedjr@gmail.com",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

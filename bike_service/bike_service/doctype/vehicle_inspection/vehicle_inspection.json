@@ -1,0 +1,170 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-17 09:22:08.220286",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "service_request_id",
+  "vehicle_number",
+  "customername",
+  "vehicle_inspector_name",
+  "brand",
+  "column_break_jhgb",
+  "model",
+  "year",
+  "inspection_date",
+  "service_job_card",
+  "section_break_knub",
+  "servicetype",
+  "section_break_eoip",
+  "vehicle_problems",
+  "photo_of_vehicle",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fetch_from": "service_request_id.customername",
+   "fieldname": "customername",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_request_id",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Service Request ID",
+   "options": "Service Request",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "service_request_id.vehiclenumber",
+   "fieldname": "vehicle_number",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Vehicle Number",
+   "options": "Vehicle Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vehicle_problems",
+   "fieldtype": "Table",
+   "label": "Vehicle Problems",
+   "options": "Vehicle Problem Checklist",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "service_request_id.assigned_vehicle_inspector",
+   "fieldname": "vehicle_inspector_name",
+   "fieldtype": "Link",
+   "label": "Vehicle Inspector Name",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "vehicle_number.brand",
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand",
+   "options": "Vehicle Details"
+  },
+  {
+   "fetch_from": "vehicle_number.model",
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model",
+   "options": "Vehicle Details"
+  },
+  {
+   "fetch_from": "vehicle_number.year",
+   "fieldname": "year",
+   "fieldtype": "Data",
+   "label": "Year",
+   "options": "Vehicle Details"
+  },
+  {
+   "fieldname": "column_break_jhgb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_eoip",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "photo_of_vehicle",
+   "fieldtype": "Attach Image",
+   "label": "Photo Of Vehicle"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Vehicle Inspection",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_knub",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "service_request_id.servicetype",
+   "fieldname": "servicetype",
+   "fieldtype": "Table",
+   "label": "Service Type",
+   "options": "Job Service"
+  },
+  {
+   "fetch_from": "service_request_id.requesteddate",
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Inspection Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "service_job_card",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Service Job Card",
+   "options": "Service Job Card"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-04-30 13:00:04.201925",
+ "modified_by": "Administrator",
+ "module": "Bike Service",
+ "name": "Vehicle Inspection",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
