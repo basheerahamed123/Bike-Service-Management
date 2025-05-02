@@ -47,6 +47,13 @@ frappe.ui.form.on('Service Job Card', {
         // }
     },
 
+    refresh: function(frm) {
+        if (frm.doc.docstatus == 0 && roles.includes("Service Advisor")){
+            frm.set_df_property('service_status', 'read_only', 1);
+        }
+       
+    },
+
     service_status: function(frm) {
         if (frm.doc.service_status === "Completed") {
             frm.set_df_property('service_status', 'read_only', 1);

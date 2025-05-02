@@ -45,6 +45,23 @@ frappe.ui.form.on('Vehicle Inspection', {
         
     },
 
+    validate(frm) {
+        let seen = new Set();
+        let duplicates = [];
+    
+        frm.doc.vehicle_problems.forEach(row => {
+            if (seen.has(row.problem_type)) {
+                duplicates.push(row.problem_type);
+            } else {
+                seen.add(row.problem_type);
+            }
+        });
+    
+        if (duplicates.length > 0) {
+            frappe.throw(`Duplicate problems selected: ${[...new Set(duplicates)].join(", ")}`);
+        }
+    },    
+
     service_request_id: function(frm) {
         if (frm.doc.service_request_id) {
             frappe.call({
@@ -73,6 +90,29 @@ frappe.ui.form.on('Vehicle Inspection', {
             frm.add_custom_button('View Job Card', () => {
                 frappe.set_route('Form', 'Service Job Card', frm.doc.service_job_card);
             }, __('Actions'));
+        }
+    }
+});
+
+frappe.ui.form.on('Vehicle Problem Checklist', {
+    problem_type(frm, cdt, cdn) {
+        const row = locals[cdt][cdn];
+        const current_problem = row.problem_type;
+
+        if (!current_problem) return;
+
+        let count = 0;
+
+        // Check how many times the same problem_type is selected
+        frm.doc.vehicle_problems.forEach(problem => {
+            if (problem.problem_type === current_problem) {
+                count++;
+            }
+        });
+
+        if (count > 1) {
+            frappe.msgprint(`"${current_problem}" is already selected. Please select it only once.`);
+            frappe.model.set_value(cdt, cdn, 'problem_type', null);
         }
     }
 });

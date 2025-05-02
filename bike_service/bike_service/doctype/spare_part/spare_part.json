@@ -33,7 +33,7 @@
   },
   {
    "fieldname": "stockquantity",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Stock Quantity",
    "non_negative": 1,
@@ -43,7 +43,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-04-15 10:24:23.900079",
+ "modified": "2025-05-02 12:00:52.431143",
  "modified_by": "Administrator",
  "module": "Bike Service",
  "name": "Spare Part",

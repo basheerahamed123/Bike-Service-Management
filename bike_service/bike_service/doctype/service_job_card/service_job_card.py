@@ -74,7 +74,7 @@ class ServiceJobCard(Document):
                     ):
                         frappe.throw("❌ You cannot update Approved or Rejected rows.")
 
-    def on_submit(self):
+    def on_change(self):
         if self.service_request_id and self.status in ["Completed", "Cancelled"]:
             service_request = frappe.get_doc("Service Request", self.service_request_id)
             
@@ -161,9 +161,10 @@ def create_invoice(doc, method=None):
     if service_doc.status != "Completed":
         return
 
-    existing_invoice = frappe.db.exists("Sales Invoice", {
-        "service_request_id": service_doc.servicerequestid
+    existing_invoice = frappe.db.exists("Sales Invoice Item", {
+        "custom_service_job_card": service_doc.name
     })
+
     if existing_invoice:
         frappe.msgprint(f"Invoice already exists: <b>{existing_invoice}</b>")
         return existing_invoice
@@ -204,6 +205,7 @@ Service Request ID: {service_doc.service_request_id}
                     "item_name": service.service,
                     "qty": 1,
                     "rate": service.serviceamount,
+                    "custom_service_job_card": service_doc.name,
                     "description": f"Service: {service.service}\n{common_description}",
                     "income_account": income_account
                 })
@@ -219,21 +221,21 @@ Service Request ID: {service_doc.service_request_id}
                     "income_account": income_account
                 })
 
-        # Add additional changes with editable charge amount
-        if service_doc.additional_changes_to_be_done:
-            for change in service_doc.additional_changes_to_be_done:
-                if change.status_of_changes == "Approved":
-                    charge_amount = change.charge_amount if hasattr(change, 'charge_amount') else 0
-                    row = invoice.append("items", {
-                        "item_name": change.additional_changes,
-                        "qty": 1,
-                        "rate": charge_amount,  # Using the charge_amount
-                        "description": f"Additional Change: {change.additional_changes}\n{common_description}",
-                        "income_account": income_account
-                    })
+        # # Add additional changes with editable charge amount
+        # if service_doc.additional_changes_to_be_done:
+        #     for change in service_doc.additional_changes_to_be_done:
+        #         if change.status_of_changes == "Approved":
+        #             charge_amount = change.charge_amount if hasattr(change, 'charge_amount') else 0
+        #             row = invoice.append("items", {
+        #                 "item_name": change.additional_changes,
+        #                 "qty": 1,
+        #                 "rate": charge_amount,  # Using the charge_amount
+        #                 "description": f"Additional Change: {change.additional_changes}\n{common_description}",
+        #                 "income_account": income_account
+        #             })
 
-                    # Make the `rate` field editable after appending the item row
-                    row.set("rate", charge_amount)
+        #             # Make the `rate` field editable after appending the item row
+        #             row.set("rate", charge_amount)
 
         invoice.insert(ignore_permissions=True)
 

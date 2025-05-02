@@ -69,14 +69,12 @@ class ServiceRequest(Document):
 
         frappe.logger().info(f"[DEBUG] Realtime event triggered for user: {user}")
 
-    def validate(self):
-    # Set status based on confirmation_through_call\
+    def before_save(self):
         if self.confirmation_through_call == "Confirmed":
             self.status = "Accepted"
         elif self.confirmation_through_call == "Rejected":
             self.status = "Rejected"
 
-        # Set confirmation_through_call based on status
         if self.status == "Accepted":
             self.confirmation_through_call = "Confirmed"
         elif self.status == "Rejected":
@@ -108,9 +106,12 @@ class ServiceRequest(Document):
         frappe.db.commit()
         print("Fixed confirmation and status mismatches.")
             
-
-
-
+    def on_change(self):
+        if self.confirmation_through_call == "Confirmed":
+            frappe.db.set_value("Service Request", self.name, "status", "Accepted")
+        elif self.confirmation_through_call == "Rejected":
+            frappe.db.set_value("Service Request", self.name, "status", "Rejected")
+        
 def get_permission_query_conditions(user):
     if not user: user = frappe.session.user
 

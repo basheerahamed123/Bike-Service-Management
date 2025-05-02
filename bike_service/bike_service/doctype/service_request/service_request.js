@@ -7,6 +7,11 @@ frappe.ui.form.on('Service Request', {
 
             frm.set_df_property('status', 'read_only', 1);
 
+            frm.set_df_property('customername', 'hidden', 0);
+            frm.set_df_property('vehiclenumber', 'hidden', 0);
+            frm.set_df_property('requesteddate', 'hidden', 0);
+            frm.set_df_property('servicetype', 'hidden', 0);
+
             frm.set_df_property('customername', 'read_only', 1);
             frm.set_df_property('vehiclenumber', 'read_only', 1);
             frm.set_df_property('requesteddate', 'read_only', 1);
@@ -47,6 +52,23 @@ frappe.ui.form.on('Service Request', {
             frm.set_df_property('confirmation_through_call', 'read_only', 1);
             frm.set_df_property('status', 'read_only', 1);
             frm.set_df_property('advisor_updated', 'hidden', 1);
+        }
+    },
+
+    validate(frm) {
+        let seen = new Set();
+        let duplicates = [];
+
+        frm.doc.servicetype.forEach(row => {
+            if (seen.has(row.service)) {
+                duplicates.push(row.service);
+            } else {
+                seen.add(row.service);
+            }
+        });
+
+        if (duplicates.length > 0) {
+            frappe.throw(`Duplicate services selected: ${[...new Set(duplicates)].join(", ")}`);
         }
     },
 
@@ -124,3 +146,28 @@ function make_advisor_fields_readonly(frm) {
         frm.refresh_field(field);
     });
 }
+
+frappe.ui.form.on('Service Type', {
+    service_name(frm, cdt, cdn) {
+        const row = locals[cdt][cdn];
+        const current_service = row.servicename;
+
+        if (!current_service) return;
+
+        let count = 0;
+
+        // Loop through all rows to count how many times this service is selected
+        frm.doc.servicetype.forEach(service => {
+            if (service.servicename === current_service) {
+                count++;
+            }
+        });
+
+        if (count > 1) {
+            frappe.msgprint(`"${current_service}" is already selected. Please select it only once.`);
+            frappe.model.set_value(cdt, cdn, 'servicename', null);
+        }
+    }
+});
+
+

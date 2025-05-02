@@ -74,7 +74,8 @@
    "fieldname": "confirmation_through_call",
    "fieldtype": "Select",
    "label": "Confirmation Through Call",
-   "options": "Pending\nConfirmed\nRejected"
+   "options": "Pending\nConfirmed\nRejected",
+   "permlevel": 1
   },
   {
    "fieldname": "amended_from",
@@ -91,7 +92,8 @@
    "default": "0",
    "fieldname": "advisor_updated",
    "fieldtype": "Check",
-   "label": "Advisor Updated"
+   "label": "Advisor Updated",
+   "permlevel": 1
   },
   {
    "allow_on_submit": 1,
@@ -111,15 +113,14 @@
    "in_list_view": 1,
    "label": "Status",
    "options": "Pending\nAccepted\nRejected",
-   "placeholder": "Pending",
-   "read_only": 1
+   "placeholder": "Pending"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-30 11:53:39.986938",
+ "modified": "2025-05-02 11:07:33.412892",
  "modified_by": "Administrator",
  "module": "Bike Service",
  "name": "Service Request",

@@ -13,21 +13,33 @@
  ],
  "fields": [
   {
+   "columns": 2,
    "fieldname": "additional_changes",
    "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Additional Changes"
   },
   {
    "allow_on_submit": 1,
+   "columns": 2,
    "fieldname": "customer_remarks",
    "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Customer Remarks"
   },
   {
    "allow_on_submit": 1,
+   "columns": 2,
    "default": "Pending",
    "fieldname": "status_of_changes",
    "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Status Of Changes",
    "options": "Pending\nApproved\nRejected"
   },
@@ -41,7 +53,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-29 16:07:30.990264",
+ "modified": "2025-05-02 11:56:23.069516",
  "modified_by": "Administrator",
  "module": "Bike Service",
  "name": "Additional Changes",
