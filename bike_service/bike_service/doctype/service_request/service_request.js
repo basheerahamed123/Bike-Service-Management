@@ -1,5 +1,21 @@
 frappe.ui.form.on('Service Request', {
     onload: function(frm) {
+
+
+        if (frappe.user_roles.includes("Service Advisor") || frappe.session.user === "Administrator") {
+            frm.set_query("assigned_vehicle_inspector", function() {
+                return {
+                    filters: {
+                        designation: "Vehicle Inspector",
+                        status: "Active"
+                    }
+                };
+            });
+        }
+
+        if (frappe.session.user === "Administrator") return;
+
+
         // Service Advisor View
         if (frappe.user_roles.includes("Service Advisor")) {
             frm.set_df_property('assigned_vehicle_inspector', 'hidden', 0);
@@ -22,15 +38,6 @@ frappe.ui.form.on('Service Request', {
 
             frm.set_df_property('advisor_updated', 'read_only', 0);
             frm.set_df_property('advisor_updated', 'hidden', 1);
-
-            frm.set_query("assigned_vehicle_inspector", function() {
-                return {
-                    filters: {
-                        designation: "Vehicle Inspector",
-                        status: "Active"
-                    }
-                };
-            });
         }
 
         // Vehicle Inspector View
@@ -123,19 +130,6 @@ frappe.ui.form.on('Service Request', {
         }
     },
 
-    // Check if advisor modified anything before save
-    before_save: function(frm) {
-        if (frappe.user_roles.includes('Service Advisor') && !frm.doc.advisor_updated) {
-            const changed_inspector = frm.doc.__unsaved && frm.doc.assigned_vehicle_inspector !== frm.doc.__last_saved?.assigned_vehicle_inspector;
-            const changed_call = frm.doc.__unsaved && frm.doc.confirmation_through_call !== frm.doc.__last_saved?.confirmation_through_call;
-            const changed_status = frm.doc.__unsaved && frm.doc.status !== frm.doc.__last_saved?.status;
-
-            if (changed_inspector || changed_call || changed_status) {
-                frm.set_value('advisor_updated', 1);
-                frappe.msgprint("✅ Advisor has updated fields. Locking them after this.");
-            }
-        }
-    }
 });
 
 // Helper function to lock fields after update

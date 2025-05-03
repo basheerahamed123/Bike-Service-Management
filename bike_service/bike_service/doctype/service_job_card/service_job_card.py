@@ -7,6 +7,10 @@ from frappe import _
 class ServiceJobCard(Document):
 
     def before_save(self):
+
+        # if frappe.session.user == "Administrator":
+        #     return
+
         # Block reassignment of technician
         if self.get_db_value("assigned_technician") and self.get_db_value("assigned_technician") != self.assigned_technician:
             frappe.throw(_("Technician has already been assigned and cannot be changed."))
@@ -38,41 +42,7 @@ class ServiceJobCard(Document):
                         if self.get(field) != old_doc.get(field):
                             frappe.throw(_("You cannot modify the document because it is Cancelled"))
 
-        for row in self.additional_changes_to_be_done:
-            if not row.name:
-                continue  # skip unsaved rows
 
-            db_row = frappe.db.get_value(
-                "Additional Changes",
-                row.name,
-                ["status_of_changes", "customer_remarks"],
-                as_dict=True
-            )
-
-            if db_row:
-                if db_row.status_of_changes in ["Approved", "Rejected"]:
-                    if row.status_of_changes != db_row.status_of_changes or row.customer_remarks != db_row.customer_remarks:
-                        frappe.throw(
-                            _("You cannot modify status or customer remarks for rows that are already Approved or Rejected.")
-                        )
-
-    def on_update_after_submit(self):
-        for row in self.additional_changes_to_be_done:
-            db_row = frappe.db.get_value(
-                "Additional Changes",
-                row.name,
-                ["status_of_changes", "customer_remarks"],
-                as_dict=True
-            )
-
-            if db_row:
-                if db_row.status_of_changes in ["Approved", "Rejected"]:
-                    # Compare and throw if tampered
-                    if (
-                        row.status_of_changes != db_row.status_of_changes or
-                        row.customer_remarks != db_row.customer_remarks
-                    ):
-                        frappe.throw("❌ You cannot update Approved or Rejected rows.")
 
     def on_change(self):
         if self.service_request_id and self.status in ["Completed", "Cancelled"]:
@@ -221,29 +191,12 @@ Service Request ID: {service_doc.service_request_id}
                     "income_account": income_account
                 })
 
-        # # Add additional changes with editable charge amount
-        # if service_doc.additional_changes_to_be_done:
-        #     for change in service_doc.additional_changes_to_be_done:
-        #         if change.status_of_changes == "Approved":
-        #             charge_amount = change.charge_amount if hasattr(change, 'charge_amount') else 0
-        #             row = invoice.append("items", {
-        #                 "item_name": change.additional_changes,
-        #                 "qty": 1,
-        #                 "rate": charge_amount,  # Using the charge_amount
-        #                 "description": f"Additional Change: {change.additional_changes}\n{common_description}",
-        #                 "income_account": income_account
-        #             })
-
-        #             # Make the `rate` field editable after appending the item row
-        #             row.set("rate", charge_amount)
 
         invoice.insert(ignore_permissions=True)
 
         # Make sure the `rate` field in the items is editable
         for item in invoice.items:
             item.set('rate', item.rate)  # Ensure that rate is editable
-
-        # invoice.submit()
 
         frappe.msgprint(f"Invoice <b>{invoice.name}</b> created successfully.")
         return invoice.name
@@ -287,43 +240,11 @@ def trigger_request_notification(job_card):
 
 
 @frappe.whitelist()
-def update_additional_change_row(parent_name, child_row_name, new_status, new_remarks):
-    parent_doc = frappe.get_doc("Service Job Card", parent_name)
-
-    for row in parent_doc.additional_changes_to_be_done:
-        if row.name == child_row_name:
-            # Get existing values from DB
-            db_row = frappe.db.get_value(
-                "Additional Changes",
-                row.name,
-                ["status_of_changes", "customer_remarks"],
-                as_dict=True
-            )
-
-            if not db_row:
-                frappe.throw(_("Row not found."))
-
-            # Once changed from 'Pending' to 'Approved' or 'Rejected', it is final
-            if db_row.status_of_changes in ["Approved", "Rejected"]:
-                if new_status != db_row.status_of_changes or new_remarks != db_row.customer_remarks:
-                    frappe.throw(_("❌ You cannot modify a row once it is marked Approved or Rejected."))
-
-            # Prevent switching between Approved and Rejected
-            if db_row.status_of_changes == "Approved" and new_status == "Rejected":
-                frappe.throw(_("❌ You cannot change status from Approved to Rejected."))
-
-            if db_row.status_of_changes == "Rejected" and new_status == "Approved":
-                frappe.throw(_("❌ You cannot change status from Rejected to Approved."))
-
-            # Allow updates only for pending or first-time set
-            row.status_of_changes = new_status
-            row.customer_remarks = new_remarks
-
-    parent_doc.save(ignore_permissions=True)
-    frappe.msgprint("✅ Row updated successfully.")
-
-@frappe.whitelist()
 def get_original_additional_change(child_row_name):
+
+    if frappe.session.user == "Administrator":
+       return
+
     row = frappe.db.get_value(
         "Additional Changes",
         child_row_name,

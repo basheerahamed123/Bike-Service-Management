@@ -51,7 +51,6 @@ class VehicleInspection(Document):
         self.service_job_card = job_card.name
         self.save(ignore_permissions=True)
 
-        frappe.logger().info(f"[DEBUG] Service Job Card created: {job_card.name}")
         frappe.msgprint(f"✅ Service Job Card <b>{job_card.name}</b> created successfully.")
 
 

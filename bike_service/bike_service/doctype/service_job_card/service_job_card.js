@@ -7,10 +7,21 @@ frappe.ui.form.on('Service Job Card', {
     onload: function(frm) {
         const roles = frappe.user_roles || [];
 
+        if(frappe.session.user === "Administrator") {
+            frm.set_query("assigned_technician", () => {
+                return { filters: { designation: "Technician" } };
+            });
+        }
+
+        if (frappe.session.user === "Administrator") return;
+
+
         // Lock all fields initially
         Object.keys(frm.fields_dict).forEach(fieldname => {
             frm.set_df_property(fieldname, 'read_only', 1);
         });
+
+
 
         // Technician access
         if (roles.includes("Technician")) {
@@ -36,29 +47,7 @@ frappe.ui.form.on('Service Job Card', {
             });
         }
 
-        // // Lock everything if Completed or Cancelled
-        // if (["Completed", "Cancelled"].includes(frm.doc.status)) {
-        //     Object.keys(frm.fields_dict).forEach(fieldname => {
-        //         frm.set_df_property(fieldname, 'read_only', 1);
-        //     });
-
-        //     frm.fields_dict.additional_changes_to_be_done.grid.update_docfield_property('customer_remarks', 'read_only', 1);
-        //     frm.fields_dict.additional_changes_to_be_done.grid.update_docfield_property('status_of_changes', 'read_only', 1);
-        // }
-    },
-
-    refresh: function(frm) {
-        if (frm.doc.docstatus == 0 && roles.includes("Service Advisor")){
-            frm.set_df_property('service_status', 'read_only', 1);
-        }
-       
-    },
-
-    service_status: function(frm) {
-        if (frm.doc.service_status === "Completed") {
-            frm.set_df_property('service_status', 'read_only', 1);
-        }
-    },
+    },   
 
 
     refresh(frm) {
@@ -66,6 +55,31 @@ frappe.ui.form.on('Service Job Card', {
         const is_advisor = frappe.user_roles.includes("Service Advisor");
         const is_final = ["Completed", "Cancelled"].includes(frm.doc.status);
         const is_submitted = frm.doc.docstatus === 1;
+
+        if (frappe.session.user === "Administrator"){
+            if (frm.doc.status === "Completed" && is_submitted) {
+                frm.add_custom_button(__('Generate Invoice'), function () {
+                    frappe.call({
+                        method: 'bike_service.bike_service.doctype.service_job_card.service_job_card.create_invoice',
+                        args: { doc: frm.doc },
+                        callback: function (r) {
+                            if (!r.exc) {
+                                if (r.message) {
+                                    frappe.show_alert({ message: __('✅ Invoice <b>{0}</b> created', [r.message]), indicator: 'green' });
+                                    frappe.set_route('Form', 'Sales Invoice', r.message);
+                                } else {
+                                    frappe.show_alert({ message: __('Invoice already exists or could not be created.'), indicator: 'orange' });
+                                }
+                            }
+                        }
+                    });
+                }, __('Actions'));
+            }
+        }
+
+
+        if (frappe.session.user === "Administrator") return;
+
 
         if (frm.doc.service_status === "Completed") {
             frm.set_df_property('service_status', 'read_only', 1);
@@ -82,6 +96,11 @@ frappe.ui.form.on('Service Job Card', {
             lock_all_fields(frm);
             frm.disable_save();
         }
+
+        if (frm.doc.docstatus === 0 && is_advisor) {
+            frm.set_df_property('service_status', 'read_only', 1);
+        }
+    
 
         // ===== 2. Status Field Control =====
         frm.set_df_property("status", "read_only", !(is_advisor && !is_final));
@@ -132,16 +151,6 @@ frappe.ui.form.on('Service Job Card', {
                     }
                 });
             }, __('Actions'));
-        }
-    },
-
-    on_submit: function(frm) {
-        const roles = frappe.user_roles || [];
-
-        if (roles.includes("Service Advisor")) {
-            frm.fields_dict.additional_changes_to_be_done.grid.update_docfield_property('customer_remarks', 'read_only', 0);
-            frm.fields_dict.additional_changes_to_be_done.grid.update_docfield_property('status_of_changes', 'read_only', 0);
-            frm.fields_dict.additional_changes_to_be_done.grid.refresh();
         }
     },
 
